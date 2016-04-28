@@ -5,10 +5,11 @@ import SomeType
 import Data.List
 import Text.Printf
 import Language.Haskell.Interpreter
+import Language.Haskell.Interpreter.Unsafe
 
 testHint :: Interpreter SomeType
 testHint = do
-  set [searchPath := ["plugin", "src"]]
+  set [searchPath := ["plugin"]]
   loadModules ["TestHint"]
   getLoadedModules >>= liftIO . print
   setTopLevelModules ["TestHint"]
@@ -26,8 +27,9 @@ errorString (WontCompile es) = intercalate "\n" (header : map unbox es)
     unbox (GhcError e) = e
 errorString e = show e
 
-main :: IO ()
-main = do r <- runInterpreter testHint
+main :: FilePath -> IO ()
+main sandbox = do
+          r <- unsafeRunInterpreterWithArgs ["-package-db=" ++ sandbox] testHint
           case r of
             Left err -> putStrLn $ errorString err
             Right fn -> do 

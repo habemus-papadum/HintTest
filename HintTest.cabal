@@ -6,7 +6,6 @@ version:             0.1.0.0
 -- synopsis:            
 -- description:         
 -- license:             
-license-file:        LICENSE
 author:              Rob
 maintainer:          polygonhell@gmail.com
 -- copyright:           
@@ -15,8 +14,9 @@ build-type:          Simple
 -- extra-source-files:  
 cabal-version:       >=1.10
 
-executable HintTest
-  main-is:             Main.hs
+library
+  exposed-modules:     Main
+                     , SomeType
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.8 && <4.9,
