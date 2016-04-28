@@ -8,7 +8,7 @@ import Language.Haskell.Interpreter
 
 testHint :: Interpreter SomeType
 testHint = do
-  set [searchPath := ["plugin", "src"]]
+  set [searchPath := ["plugin"]]
   loadModules ["TestHint"]
   getLoadedModules >>= liftIO . print
   setTopLevelModules ["TestHint"]
