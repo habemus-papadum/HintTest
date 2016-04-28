@@ -27,9 +27,9 @@ errorString (WontCompile es) = intercalate "\n" (header : map unbox es)
     unbox (GhcError e) = e
 errorString e = show e
 
-main :: IO ()
-          -- change this path to your sandbox as appropriate, or remove entirely if you installed HintTest globally.
-main = do r <- unsafeRunInterpreterWithArgs ["-package-db=.cabal-sandbox/x86_64-osx-ghc-7.10.2-packages.conf.d/"] testHint
+main :: FilePath -> IO ()
+main sandbox = do
+          r <- unsafeRunInterpreterWithArgs ["-package-db=" ++ sandbox] testHint
           case r of
             Left err -> putStrLn $ errorString err
             Right fn -> do 
